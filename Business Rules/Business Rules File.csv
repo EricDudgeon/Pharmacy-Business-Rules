@@ -1,0 +1,340 @@
+﻿Multum_Reference,Dosage_Abbrev,Dosage_Form,Sig_Tool,Active,Label_Description,Item_Description_Example,NDC_Description_Examples,Character_Limited_Descriptions,Comments,Divisibility_Rules,Supply_Chain_Considerations,Form_Definitions,Recommended_Changes
+Standard Rules,Standard rules,Standard rules,Standard rules,,"Single Product: Generic Drug Name| Strength| Strength Units|Drug Form Description |[package size]  - if applicable
+Combination product: Generic Drug Name (each ingredient)| Strength (ingredient 1)| Strength Units (ingredient 1)|""-"" |  Strength (ingredient 2)| Strength Units (ingredient 2)|Drug Form Descriptor
+Volume Product: Generic Drug Name| Strength| Strength Units|""/"" Volume|Drug Form Descripton
+",,,"Drop strength units for all ingredients except for last ingredient strength unit
+
+conjugated = conj","50 Character limit excluding package sizes in brackets (DoD allowance 60, VA CMOP allowance 50)
+Brand products: will include the Brand name in the Manfuc. description. IF is generic for everything except for NTIs where it will be: generic name (brand name).
+Only include salt if there are multiple salts
+Products used for compounding will be exceptions to the following business rules and will be reviewed by enterprise team
+Include applicator when appropriate. Can shorten to 'app' if the character limit is over 50
+Sugar, Alcohol, Dye, Citrate Free: (SF/AF/DF/CF) before drug form [e.g. (SF) oral solution]","0 = non-divisible
+1 = divisible",BUOM = lowest available denominator unless the smallest billing quantity is a decimal point. If decimal point then use Inventory Package BUOM (e.g. Inhaler of 6.7 g would need a BUOM of 6.7 g),,
+"aerosol
+aerosol powder",Aerosol,Aerosol,AEROSOL,,"Drug Form Descriptor: inhaler
+Include Package Size",beclomethasone 40 mcg inhaler (8.7g),,inh,"1. Unique ITEM_ID for each package size
+2. Do not include HFA and CFC Free
+3. Remove the inh from mcg/inh 
+4. Change brackets to parentheses  --> [6.2g] change to (6.2g)",0,EA = # of grams per package,"A product that is packaged under pressure and contains therapeutically active ingredients that are released upon activation of an appropriate valve system; it is intended for topical application to the skin as well as local application into the nose (nasal aerosols), mouth (lingual aerosols), or lungs (inhalation aerosols).",
+aerosole with adapter,Aerosol-Adpt,Aerosol with Adaptor,AEROSOL-ADPT,No,,,,,,,,,
+,Amp,Ampule,AMP,No,,,,,,,,,
+,Bag,Bag,BAG,No,,,,,,,,,
+bar,Bar,Bar,BAR,No,,,,,Order by EACH,0,,A solid dosage form usually in the form of a rectangle.,
+capsule,Cap,Capsule,CAP,,Drug Form Descriptor: capsule,acebutolol 200 mg capsule,,cap,,1,BUOM = 1 cap,"A solid oral dosage form consisting of a shell and a filling.  The shell is composed of a single sealed enclosure, or two halves that fit together and which are sometimes sealed with a band.  Capsule shells may be made from gelatin, starch, or cellulose, or other suitable materials, may be soft or hard, and are filled with solid or liquid ingredients that can be poured or squeezed.",
+,Cap-12 hr release,12 Hr. Release Capsule,CAP-12,,"Drug Form Descriptor: capsule
+Include ER description after Drug Name
+Include ""/12 hour"" after Strength Units
+Drug Name| ER | Strength| Strength Units|""/12 hour"" |Drug Form",aspirin-dipyridamole ER 25 mg-200 mg/12 hr capsule,"Item Description: propafenone ER 225 mg/12 hour capsule
+NDC Description: Rythmol SR 225 mg/12 hour capsule
+
+Exception Item Description: dilTIAZem SR 90 mg/12 hour capsule
+Exception NDC Description: dilTIAZem SR 90 mg/12 hour capsule",cap,"1. Only use this dosage form if the manufacturer markets the product as a 12-hour formulation. May need to research if Multum does not pull in. If the manufacturer does not indicate it is 12 hours then do not include and use the Cap-ER drug formulation.
+2. For most items use ER on the item and NDC description; however if there are multiple formulations of the same medication that have different descriptors then use the Brand descriptor (e.g. XR/SR/LA)
+3. The approved exceptions that can have XR/LA/SR: Diltiazem, Nifedipine, Morphine, Methylphenidate, Bupropion, Depakote",1,,,
+,Cap-24 hr release,24 Hr. Release Capsule,CAP-24,,"Drug Form: capsule
+Include ER description after Drug Name
+Include ""/24 hour"" after Strength Units
+Drug Name| ER | Strength| Strength Units|""/24 hour"" |Drug Form",dilTIAZem ER 120 mg/24 hour capsule,"Item Description: propranolol ER 80 mg/24 hour capsule
+NDC Description: Inderal LA 80 mg/24 hour capsule
+
+Exception Item Description: dilTIAZem CD 120 mg/24 hour capsule
+Exception NDC Description: Cardizem CD 120 mg/24 hour capsule",cap,"1. Only use this dosage form if the manufacturer markets the product as a 24-hour formulation. May need to research if Multum does not pull in. If the manufacturer does not indicate it is 24 hours then do not include and use the Cap-ER drug formulation.
+2. For most items use ER on the item and NDC description; however if there are multiple formulations of the same medication that have different descriptors then use the Brand descriptor (e.g. XR/SR/LA)
+3. The approved exceptions that can have XR/LA/SR: Diltiazem, Nifedipine, Morphine, Methylphenidate, Bupropion, Depakote",,,,
+,Cap-CR,Controlled Release Capsule,CAP-CR,No,,,,,,,,No definition for controlled release or targeted release is provided by the FDA or pharmacopoeias.,
+delayed release capsule,Cap-DR,Delayed Release Capsule,CAP-DR,,"Drug Form: capsule
+Include DR description after Drug Name",dexlansoprazole DR 30 mg capsule,,cap,"**need more specigic guidelines 
+Preferred option ",1,,"A solid dosage form in which the drug is enclosed within either a hard or soft soluble container made from a suitable form of gelatin, and which releases a drug (or drugs) at a time other than promptly after administration.  Enteric-coated articles are delayed release dosage forms.",
+,Cap-EC,Enteric Coated Capsule,CAP-EC,,"Drug Form: capsule
+Include EC description after Drug Name
+Drug Name| EC | Strength| Strength Units |Drug Form","typhoid vaccine, live - capsule",,cap,**need more specigic guidelines ,1,,,
+"capsule, extended release",Cap-ER,Extended Release Capsule,CAP-ER,,"Drug Form: capsule
+Include ER description after Drug Name
+Drug Name| ER | Strength| Strength Units |Drug Form",acetaZOLAMIDE ER 500 mg capsule,,cap,"1. Use this for any ER capsule that is not specifically 12 or 24 hour formulations.
+2. For most items use ER on the item and NDC description; however if there are multiple formulations of the same medication that have different descriptors then use the Brand descriptor (e.g. XR/SR/LA)
+3. The approved exceptions that can have XR/LA/SR: Diltiazem, Nifedipine, Morphine, Methylphenidate, Bupropion, Depakote",1,,"A solid dosage form in which the drug is enclosed within either a hard or soft soluble container or ""shell"" made from a suitable form of gelatin; additionally, the capsule is covered in a designated coating, and which releases a drug (or drugs) in such a manner to allow at least a reduction in dosing frequency as compared to that drug (or drugs) presented as a conventional dosage form.",
+,Cap-Gel,Gel Capsule,CAP-GEL,No,,,,,,,,,
+,Caplet,Caplet,CAPLET,No,,,,,,,,,
+,Cap-Sprinkle,Sprinkle Capsule,CAP-SPRINKLE,,Drug Form: sprinkle capsule,topiramate 15 mg sprinkle capsule,,SPRK cap,,1,,"Capsule to be opened, contents administered in food ",
+concentrate,Conc,Concentrate,CONC,,"Drug Form Descriptor: concentrate
+Include Package Size",oxyCODONE 20 mg/mL conceentrate [30mL],,conc,,1,,A liquid preparation of increased strength and reduced volume which is usually diluted prior to administration.,
+cream,Cream,Cream,CREAM,,"Drug Form Descriptor: cream
+Include Package Size",alclometasone 0.05% cream [45g],,cre,"Do not include topical in the description
+
+DIV=0 unless Multum PKG_UNIT=EA (DIV=1)",0/1,,"An emulsion, semisolid3 dosage form, usually containing > 2% water and volatiles5 and/or < 5% hydrocarbons, waxes, or polyols as the vehicle.  This dosage form is generally for external application to the skin or mucous membranes.",
+,Cream-Applicator,Cream with Applicator,CREAM-APP,No,,,,,,,,,
+cream with applicator,,cream with applicator,,No,,,,,,,,,
+,Cream-Vaginal,Vaginal Cream,CREAM-VAG,,"Drug Form Descriptor: vaginal cream
+Include Package Size",clotrimazole 1% vaginal cream [45g],,cre,,,,,
+,Cream-Rectal,Rectal Cream,CREAM-REC,,"Drug Form Descriptor: rectal cream
+Include Package Size",hydrocortisone-pramoxine 1%-1% rectal cream [30g],,cre,DIV=0 unless Multum PKG_UNIT=EA (DIV=1),0/1,,,
+crystal,Crystal,Crystal,CRYSTAL,No,,,,,DIV=0 (PKG_UNIT=mL or g; DIV=1 (PKG_UNIT=EA),0/1,,A naturally produced angular solid of definite form in which the ultimate units from which it is built up are systematically arranged; they are usually evenly spaced on a regular space lattice.,
+,Diaphragm,Diaphragm,DIAPHRAGM,No,,,,,,,,,
+,Douche,Douche,DOUCHE,No,,,,,,,,,
+device,device,device,,,,,,,,,,,
+dispersion,dispersion,dispersion,,,,,,,,,,,
+,Dongle,Dongle,,,,,,,"Please refer this dosing form to Ms. Elizabeth (Libby) Hearin at DHA, Pharmacy Ops",,,,
+dressing,Dressing,Dressing,DRESSING,No,,,,,,,,,
+drops,drops,drops,,No,,,,,,,,,
+,Drops-Nasal,Nasal Drops,DROP-NASAL,No,"Drug Form Descriptor: nasal spray
+Include Package Size",,,,Use Spray-Nasal,0,,,
+,Each,Each,EACH,,Depends on the item,,,,IUD = IUD,0,,,
+elixir,Elixir,Elixir,ELIXIR,,Drug Form Descriptor: elixir,PHENobarbital 20 mg/5 mL elixir,,eli,"Include Package Size if product is not divisible
+
+Order by mL (unit dose for inpatient should not be divisible)",1,BUOM = 1 mL,"A clear, pleasantly flavored, sweetened hydroalcoholic liquid containing dissolved medicinal agents; it is intended for oral use.",
+emulsion,emulsion,emulsion,,,,"fat emulsion, intravenous 20% emulsion [250mL]",,,,,,,
+,Emulsion-Topical,Topical Emulsion,EMULSION-TOP,,,coal tar topical 7.5% emulsion topical,,,,,,,
+enema,Enema,Enema,ENEMA,,"Drug Form Descriptor: enema
+Include Package Size",bisacodyl 10 mg enema [37.5mL],,ena,DIV=0 (Multum PKG_UNIT=mL); DIV=1 (PKG_UNIT=EA),0/1,,"A rectal preparation for therapeutic, diagnostic, or nutritive purposes.",
+foam,Foam,Foam,FOAM,,Drug Form Descriptor: foam,pramoxine topical 1% foam [15g],,,,0,,"A dosage form containing one or more active ingredients, surfactants, aqueous or nonaqueous liquids, and the propellants; if the propellant is in the internal (discontinuous) phase (i.e., of the oil-in-water type), a stable foam is discharged, and if the propellant is in the external (continuous) phase (i.e., of the water-in-oil type), a spray or a quick-breaking foam is discharged.",
+foam with applicator,Foam-Applicator,Foam with Applicator,FOAM-APP,No,,,,,,0,,,
+,Foam-Rectal,Rectal Foam,FOAM-REC,,Drug Form Descriptor: rectal foam,,,,,0,,,
+,Foam-Vag,Vaginal Form,FOAM-VAG,,,,,,,,,,
+,Gauze,Gauze,GAUZE,No,,,,,,,,,
+"gel
+gel forming solution",Gel,Gel,GEL,,"Drug Form Descriptor: gel
+Include Package Size",adapalene 0.3% gel [45g],,,DIV=0 PKG_UNIT=ml or g; DIV=1 (PKG_UNIT=EA),0/1,,A semisolid3 dosage form that contains a gelling agent to provide stiffness to a solution or a colloidal dispersion.4  A gel may contain suspended particles.,
+gel with applicator,Gel-Applicator,Gel with Applicator,,,"Drug Form Descriptor: gel w/ applicator
+Include Package Size",lidocaine 2% gel w/applicator [30mL],,,,0,,,Include applicator? Standardize with foam and cream
+,Gel-Nasal,Nasal Gel,GEL-NASAL,,"Drug Form Descriptor: nasal gel
+Include Package Size",sodium chloride 0.65% nasal gel [14.1g],,,DIV=0 unless Multum PKG_UNIT=EA (DIV=1),0/1,,,
+,Gel-Ophth,Ophthalmic Gel,GEL-OPTH,,"Drug Form Descriptor: eye gel
+Include Package Size",timolol 0.25% eye gel [5mL],,,DIV=0 unless Multum PKG_UNIT=EA (DIV=1),0/1,,,
+,Gel-Oral,Oral Gel,GEL-ORAL,,"Drug Form Descriptor: oral gel
+Include Package Size",saliva substitutes oral gel [42g],,gel,DIV=0 unless Multum PKG_UNIT=EA (DIV=1),0/1,,,
+,Gel-Rectal,Rectal Gel,GEL-REC,,"Drug Form Descriptor: rectal gel
+Include Package Size",diazePAM 10 mg rectal gel kit,,,DIV=0 unless Multum PKG_UNIT=EA (DIV=1),0/1,,,
+,Gel-Vag,Vaginal Gel,GEL-VAG,No,,,,,,,,,
+granule,Granule,Granule,GRANULE,,"Drug Form: packet
+Include Package Size",montelukast 4 mg packet,,pack,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA or mL),0/1,,A small particle or grain.,When would you use this versus Granule-Recon?
+granule for reconstitution,Granule-Recon,Granule for Reconstitution-oral use,GRANULE-RECON,,"Drug Form: packet
+Include Package Size",lumacaftor-ivacaftor 100 mg-125 mg packet [56EA],,pack,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA or mL),0/1,,"A small medicinal particle or grain made available in its more stable dry form, to be reconstituted with solvent just before dispensing; the granules are so prepared to contain not only the medicinal agent, but the colorants, flavorants, and any other desired pharmaceutic ingredient.",
+"granule, effervescent",Granule-Effrv,Effervescent Granule,GRANULE-EFF,No,,,,,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA or mL),0/1,,"A small particle or grain containing a medicinal agent in a dry mixture usually composed of sodium bicarbonate, citric acid, and tartaric acid which, when in contact with water, has the capability to release gas, resulting in effervescence.",
+"granule, enteric coated",,"granule, enteric coated",,,,,,,,,,,
+"granule, extended release",Granule-ER,Extended Release Granule,GRANULE-ER,No,,,,,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA or mL),0/1,,"A small medicinal particle or grain made available in its more stable dry form, to be reconstituted with solvent just before dispensing to form a suspension; the extended release system achieves slow release of the drug over an extended period of time and maintains constant drug levels in the blood or target tissue.",
+gum,Gum,Gum,GUM,,"Drug Form: gum
+Include Package Size",nicotine 2 mg gum [100EA],,,Nicotine gum DIV=0,0,,"A sweetened and flavored insoluble plastic material of various shapes which when chewed, releases a drug substance into the oral cavity.",
+implant,Implant,Implant,,,Drug Form: implant,goserelin 10.8 mg implant,,imp,,0,,"A material containing drug intended to be inserted securely of deeply in a living site for growth, slow release, or formation of an organic union.",
+,Inhaler,Inhaler,INHALER,,"Drug Form: inhaler
+Include Package Size",albuterol 90 mcg inhaler [18g],,inh,Do not include HFA and CFC Free,,,,
+,Inhaler-Nasal,Nasal Inhaler,,No,,,,,,,,,
+,Inhaler-Disk,Oral Disk Inhaler,INH-ORAL-DISK,No,,,,,,,,,
+"injection; 
+powder for injection; 
+powder for injection, extended release",Injection,Injection,,,Drug Form: inj,albiglutide 30 mg inj,,,"Include Package Size if product is not divisible
+
+ inj-vial, inj-amp, inj-syr, inj-pen, inj-sol, inj-tubex, inj-carpuject, inj-kit
+
+DIV=0 (PKG_UNIT=mL); DIV=1 (PKG_UNIT=EA)",0/1,,A sterile preparation intended for parenteral use; five distinct classes of injections exist as defined by the USP ,No to vial/amp/soln
+,Injection-Insulin,Insulin Injection,INJECTION-INSULIN,,"Include U-100, Package Size, Brand, and generic
+U-100|Brand Name|Insulin Generic|Strength|Strength Units |/Volume|Drug Form",U-100 insulin detemir 100 units/mL [10mL],,,Label description does not include solution as drug form but does include suspension,,,,
+,Injection-Insulin 2,Insulin Injection 200units/ml,INJECTION-INSULIN2,,"Include U-200, Package Size, Brand, and generic
+U-200|Brand Name|Insulin Generic|Strength|Strength Units |/Volume|Drug Form",U-200 insulin degludec 200 units/mL [3mL],,,Label description does not include solution as drug form but does include suspension,,,,
+,Injection-Insulin 3,Insulin Injection 300units/ml,INJECTION-INSULIN3,,"Include U-300, Package Size, Brand, and generic
+U-300|Brand Name|Insulin Generic|Strength|Strength Units |/Volume|Drug Form",U-300 insulin glargine 300 units/mL [3mL],,,Label description does not include solution as drug form but does include suspension,,,,
+,Injection-Insulin 5,Insulin Injection 500units/ml,,,"Include U-500, Package Size, Brand, and generic
+U-500|Brand Name|Insulin Generic|Strength|Strength Units |/Volume|Drug Form",,,,Label description does not include solution as drug form but does include suspension,,,,
+insert,,insert,,,,,,,,,,,
+kit,Kit,Kit,KIT,,"Drug Form Descriptor: type of kit-kit
+Include Package Size",EPINEPHrine 0.15 mg inj-kit [2EA],,,,0,,A packaged collection of related material.,
+liquid,Liquid,Liquid,LIQUID,,Drug Form Descriptor: liquid,emollients liquid [45g],,liq,"30 mL or less = non-divs
+40 mL - 120 mL= non-divs
+anything over 120 mL = divisible ",0/1,BUOM = 1 mL,A dosage form consisting of a pure chemical in its liquid1 state.  This dosage form term should not be applied to solutions. ,
+"liquid, extended release",,"liquid, extended release",,,,,,,,,,,
+,Liquid-Topical,Topical Liquid,LIQUID-TOP,,"Drug Form Descriptor: topical liquid
+Include Package Size",isopropyl alcohol 70% topical liquid,,,label description does not include solution as drug form but does include suspension,0,BUOM = 1 mL,,
+lotion,Lotion,Lotion,LOTION,,"Drug Form Descriptor: lotion
+Include Package Size",ammonium lactate 12% lotion [225 g],,lot,"Do not include topical in the descriptionDIV=0 
+
+(PKG_UNIT=mL or g); DIV=1 (PKG_UNIT=EA)",0/1,BUOM = 1 mL,"An emulsion, liquid1 dosage form.  This dosage form is generally for external application to the skin.2",
+lozenge,Lozenge,Lozenge,LOZ,,"Drug Form Descriptor: lozenge
+Include Package Size",nicotine 4 mg lozenge [24EA],,loz,DIV=0 (sore throat lozenges; nicotine); DIV=1 all others,0/1,,"A solid preparation containing one or more medicaments, usually in a flavored, sweetened base which is intended to dissolve or disintegrate slowly in the mouth.  A lollipop is a lozenge on a stick.",
+,Misc,Miscellaneous,MISC,,Supply Brand Name and Package Sizes,,,,Be sure that package sizing and descriptions stay consistent from description to description,0,,,
+,Mouthwash,Mouthwash,MWSH,,"Drug Form Descriptor: mouthwash
+Include Package Size",benzocaine 10% mouthwash [210mL],,,,0,BUOM = 1 mL,"An aqueous solution which is most often used for its deodorant, refreshing, or antiseptic effect.",
+oil,Oil,Oil,OIL,,"Drug Form Descriptor: oil
+Include Package Size",fluocinolone 0.01% oil [118.28ml],,,DIV=0 (topical & PKG_UNIT=mL or g); DIV=1 (oral or PKG_UNIT=EA),0/1,BUOM = 1 mL,"An unctuous, combustible substance which is liquid, or easily liquefiable, on warming, and is soluble in ether but insoluble in water.  Such substances, depending on their origin, are classified as animal, mineral, or vegetable oils.",
+ointment,Ointment,Ointment,OINT,,"Drug Form Descriptor: ointment
+Include Package Size",acyclovir 5% ointment [15g],,oint,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA),0/1,,"A semisolid3 dosage form, usually containing <2% water and volatiles5 and >5% hydrocarbons, waxes, or polyols as the vehicle.  This dosage form is generally for external application to the skin or mucous membranes.",
+ointment w/applicator,Ointment-Applicator,Ointment with Applicator,OINT-APP,No,,,,,,0,,,
+,Oint-Ophth,Ophthalmic Ointment,OINT-OPTH,,"Drug Form Descriptor: eye ointment
+Include Package Size",atropine 1% eye ointment [3.5g],,eye oint,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA),0/1,,,
+,Oint-Otic,Otic Ointment,,No,,,,,,,,,
+,Oint-Rectal,Rectal Ointment,OINT-REC,No,,,,,,,,,
+,Packet,Packet,PKT,,Drug Form Descriptor: packet,colestipol 5 g packet,,,Include Package Size if product is not divisible,1,,,
+pad,Pad,Pad,PAD,,Drug Form Descriptor: pad or topical pad,salicylic acid 40% topical pad [14EA],,,Include Package Size if product is not divisible,0,,,
+paste,Paste,Paste,PASTE,,"Drug Form Descriptor: paste
+Include Package Size",zinc oxide 20% paste [170g],,Pas,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA),0/1,,"A semisolid3 dosage form, containing a large proportion (2 – 5%) of solids finely dispersed in a fatty vehicle.  This dosage form is generally for external application to the skin or mucous membranes.",
+,Paste-Dental,Dental Paste,PASTE-DENTAL,,"Drug Form Descriptor: dental paste
+Include Package Size",fluoride 1.1% dental paste [113g],,Pas,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA),0/1,,"A paste formulation intended to clean and/or polish the teeth, and which may contain certain additional agents.",
+"film
+film, extended release",Patch,Patch,PATCH,,Drug Form Descriptor: patch,lidocaine 5% patch,,pat,"Include Package Size if product is not divisible
+Include hours if necessary",1,,"A drug delivery system that often contains an adhesive backing that is usually applied to an external site on the body.  Its ingredients either passively diffuse from, or are actively transported from, some portion of the patch.  Depending upon the patch, the ingredients are either delivered to the outer surface of the body or into the body.  A patch is sometimes synonymous with the terms ‘extended release film’ and ‘system’.",
+,Patch-ER,Extended Release Patch,PATCH-ER,,Drug Form Descriptor: ER patch,rotigotine 4 mg/24 hour ER patch,,,If possible be more specific using below ER patches,1,,"A drug delivery system in the form of a patch that releases the drug in such a manner that a reduction in dosing frequency compared to that drug presented as a conventional dosage form (e.g., a solution or a prompt drug-releasing, conventional solid dosage form).",
+,Patch-24,24 Hr. Release Patch,PAT-24,,"Drug Form Descriptor: patch
+Include ""/24 hour"" after Strength Units
+Drug Name|Strength|Strength Units|""/24 hour""|Drug Form",cloNIdine 0.1 mg/24 hour patch,,,"Include Package Size if product is not divisible
+Include hours if necessary
+
+only include /24 hour if the manufacturer includes it (may need research when building)
+
+nicotine patches (DIV=0); all others DIV=1",0/1,,,
+,Patch-72,72 Hr. Release Patch,PAT-72,,"Drug Form Descriptor: patch
+Include ""/72 hour"" after Strength Units
+Drug Name|Strength|Strength Units|""/72 hour""|Drug Form",,,,"Include Package Size if product is not divisible
+Include hours if necessary",1,,,
+,Patch-Twice Weekly,Patch-Twice Weekly,PAT-BW,,Drug Form Descriptor: twice weekly patch,oxybutynin 3.9 mg/24 hour twice weekly patch,,2x/wk,"Include Package Size if product is not divisible
+Include hours if necessary",1,,,
+,Patch-Weekly,Weekly Patch,PAT-WK,,Drug Form Descriptor: weekly patch,cloNIdine 0.2 mg/24 hour weekly patch,,wk,"Include Package Size if product is not divisible
+Include hours if necessary",1,,,
+powder,Powder,Powder,POWDER,,Drug Form Descriptor: powder,miconazole 2% powder [85g],,pwd,"If possible be more specific using below drug forms (only to be used for bulk compounding or when route not specified)
+
+Include Package Size if product is not divisible",,,"An intimate mixture of dry, finely divided drugs and/or chemicals that may be intended for internal or external use.",
+,Powder-Inhale,Powder-Inhale,POWDER-AEROSOL,,"Drug Form Descriptor: inhaler
+Include Package Size",aclidinium 400 mcg inhaler (1EA),NDC description: Advair Diskus 100-50 mcg inhaler (60EA),inh,"Powder-Inhale
+1. spell out inhale (if the description is under 50)
+2. remove 'pwd' or 'powder'
+3. do not change product descriptions that contain ' inhalation capsule'
+4. use parentheses instead of brackets for the package size",0,,An powder dosage form that is situated inside a container that has a mechanism to deliver a specified quantity.,Should this just be inhaler?
+,Powder-Inj,Injectable Powder,POWDER-INJ,No,,,,,, ,,,
+"powder for reconsitution; powder for reconsitution, delayed release; powder for reconsitution, extended release",Powder-Oral,Powder-Oral,POWDER-RECON,,"Drug Form Descriptor: suspension
+Include Package Size if product is not divisible ",azithromycin 100 mg/5 mL suspension [15mL],,susp,DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=mL or EA),0/1,,"An intimate mixture of dry, finely divided drugs and/or chemicals, which, upon the addition of suitable vehicles, yields a solution/suspension.",
+,Powder-Packet,Packet of Powder,POWDER-PKT,,Drug Form Descriptor: packet,cholestyramine light 4 g packet,,,Include Package Size if product is not divisible,1,,,
+,Powder-Spiriva,Powder-Spiriva,POWDER-SPIRIVA,No,,,,,,,,,
+,Powder-Topical,Topical Powder,POWDER-TOP,,"Drug Form Descriptor: powder
+Include Package Size",miconazole 2% powder [43g],,pwd,"Do not include topical
+
+'DIV=0 (PKG_UNIT=g); DIV=1 (PKG_UNIT=EA)",0/1,,,
+ring,Ring,Ring,RING,,Drug Form Descriptor: ring,barrier adapt ring h#79520 convex,,rin,"Include Package Size if it makes sense and product is not divisible
+
+'DIV=0 if EA=1; DIV=1 if EA>1",0/1,,"A small circular object with a vacant circular center that is usually intended to be placed in the body by special inserters, where the medication is released, generally for localized effects.",
+shampoo,Shampoo,Shampoo,SHAMPOO,,"Drug Form Descriptor: shampoo
+Include Package Size",salicylic acid topical 3% shampoo [120mL],,sha,,0,BUOM = 1 mL,1,
+soap,Soap,Soap,SOAP,,"Drug Form Descriptor: soap
+Include Package Size",chlorhexidine 4% Soap [946mL],,,Do not include topical,0,BUOM = 1 mL,"Any compound of one or more fatty acids, or their equivalents, with an alkali; soap is detergent and is much employed in liniments, enemas, and in making pills.  It is also a mild aperient, antacid and antiseptic.",
+solution,solution,solution,,,,cetirizine 1 mg/mL solution [120mL],,,**This is currently not referenced to Soln in the domain**,,,,
+"solution, extended release","solution, extended release","solution, extended release",,,,,,,,,,,
+,Soln,Solution,SOLN,,Drug Form Descriptor: solution,cetirizine 1 mg/mL solution [120mL],,sol,"Include Package Size if product is not divisible
+
+Reserve only for when route not otherwise specified",0/1,,"A clear, homogeneous liquid1 dosage form that contains one or more chemical substances dissolved in a solvent or mixture of mutually miscible solvents.",
+,Soln-Inhalation,Solution for Inhalation,SOLN-INHALATION,,Drug Form Descriptor: inhalation solution,ipratropium 0.02% inhalation solution [2.5mL],,"inhale sol
+sol","Include Package Size if product is not divisible
+
+'DIV=0 (PKG_UNIT=mL); DIV=1 (PKG_UNIT=EA)",0/1,,,solution inhalation?
+,Soln-Irrig,Solution for Irrigation,SOLN-IRR,,Drug Form Descriptor: irrigation solution,physiological irrigating solution Cardioplegic SOL,,"irrig sol
+sol",Include Package Size if product is not divisible,0,,,irrigation solution?
+ solution,Soln-IV,IV Solution,SOLN-IV,,Drug Form Descriptor: IV solution,"lactated ringers 1,000 mL IV solution",,,"Include Package Size if product is not divisible
+
+'DIV=0 (PKG_UNIT=mL); DIV=1 (PKG_UNIT=EA); use for IVPB/IVF",0/1,,,
+,Soln-Nasal,Nasal Solution,SOLN-NASAL,,"Drug Form Descriptor: nasal solution or nasal spray
+Include Package Size",cocaine 4% nasal spray [4mL],,nsl sol,,0,,,when should we use this over nasal spray? Should this only be used for nasal irrigation?
+,Soln-Ophth,Ophthalmic Solution,SOLN-OPTH,,"Drug Form Descriptor: eye solution or eye drops
+Include Package Size",alcaftadine 0.25% eye drops [3mL],,eye sol,"Separate out based on strength of eye drop. I.e. 1% - 3% vs. 1.2% - 2%
+
+use eye drops when the product is OTC",0,BUOM = 1 mL,,
+,Soln-Oral,Oral Solution,SOLN-ORAL,,Drug Form Descriptor: oral solution,propranolol 40 mg/5 mL oral solution,,sol,"Include Package Size if product is not divisible
+
+'DIV=0 for volumes of 120 mL or less; all others DIV=1",0/1,BUOM = 1 mL,,
+,Soln-Otic,Otic Solution,SOLN-OTIC,,"Drug Form Descriptor: ear solution or ear drops
+Include Package Size",ciprofloxacin-fluocinolone 0.3%-0.025% ear drops,,ear sol,Look at the manufacturer description (may need to Google) to determine if ear solution or ear drops should be used,0,BUOM = 1 mL,,
+,Soln-Topical,Topical Solution,SOLN-TOP,,Drug Form Descriptor: topical solution,clobetasol 0.05% topical solution [25mL],,top sol,,0,BUOM = 1 mL,,
+sponge,Sponge,Sponge,SPONGE,No,,,,,,,,"A porous, interlacing, absorbent material that contains a drug.  It is typically used for applying or introducing medication, or for cleansing.  A sponge usually retains its shape.",
+spray,Spray,Spray,SPRAY,,"Drug Form Descriptor: spray
+Include Package Size",benzocaine topical 20% spray [59.7g],,spr,Try to pick a more specific drug form,0,,A liquid minutely divided as by a jet of air or steam.,
+,Spray-Nasal,Nasal Spray,SPRAY-NASAL,,"Drug Form Descriptor: nasal spray
+Include Package Size",desmopressin 0.01% nasal spray [2.5mL],,spr,,0,,,
+,Spray-Top,Topical Spray,SPRAY-TOP,,"Drug Form Descriptor: topical spray
+Include Package Size",clobetasol 0.05% topical spray [59mL],,,,0,,,
+stick,Stick,Stick,STICK,,Drug Form Descriptor: stick,silver nitrate topical stick [100EA],,Sti,Include Package Size if it makes sense and product is not divisible,1,,A dosage form prepared in a relatively long and slender often cylindrical form.,
+disintegrating strip,Strip,Strip,STRIP,,Drug Form Descriptor: strips,fluorescein ophthalmic 1 mg strip [100EA],,,Include Package Size if it makes sense and product is not divisible,0/1,,A long narrow piece of material.,
+,Strip-Glucose,Glucose Blood Test Strip,STRIP-GLU,,Drug Form Descriptor: strips,glucose test strip (contour next),,,"Include Package Size if it makes sense and product is not divisible
+
+Mirror Brand product name so if glucose is in the mfr name then include… conversely, if glucose is not included then do not include",0,,,Is there a need for this drug form?
+suppository,Supp,Suppository,SUPP,,Drug Form Descriptor: suppository,alprostadil 250 mcg suppository [6EA],,supp,"Try to pick a more specific drug form
+
+Include Package Size if it makes sense and product is not divisible
+
+DIV=0 (suppositories not individually wrapped); DIV=1 all others",0/1,,"A solid body of various weights and shapes, adapted for introduction into the rectal orifice of the human body; they usually melt, soften, or dissolve at body temperature.",
+,Supp-Rectal,Supp-Rectal,SUPP-RECTAL,,Drug Form Descriptor: rectal suppository,acetaminophen 120 mg rectal suppository,,supp,"Include Package Size if it makes sense and product is not divisible
+
+DIV=0 (suppositories not individually wrapped); DIV=1 all others",0/1,,,
+,Supp-Vag,Vaginal Suppository,SUPP-VAG,,Drug Form Descriptor: vaginal suppository,terconazole 80 mg vaginal suppository [3EA],,supp,"Include Package Size if it makes sense and product is not divisible
+
+DIV=0 (suppositories not individually wrapped); DIV=1 all others",0/1,,,
+"suspension;
+suspension, extended release",Susp,Suspension,SUSP,,Drug Form Descriptor: suspension,acetaminophen 160 mg/5 mL suspension [118mL],,susp,"This should only be used if there is no better/more specific Suspension form.
+
+Include Package Size if product is not divisible",1,,A liquid1 dosage form that contains solid particles dispersed in a liquid vehicle.,
+,Susp-Inhalation,Suspension for Inhalation,SUSP-INHALATION,,Drug Form Descriptor: inhalation suspension,budesonide 0.5 mg/2 mL inhalation suspension (2mL),,erner,Include Package Size if product is not divisible,,,,
+,Susp-Inj,Suspensation for Injection,SUSP-INJ,,"Drug Form Descriptor: Injection, PFS, pen-kit",ARIPiprazole 300 mg injection,,inj,Include Package Size if product is not divisible,0/1,,"Use for any injectable suspension (requires agitation),
+regardless of route (IV, IA, SQ, IM, IT)",
+,Susp-Ophth,Ophthalmic Suspension,SUSP-OPTH,,"Drug Form Descriptor: eye suspension or eye drops
+Include Package Size",brinzolamide 1% eye suspension [10mL],,eye susp,,0,BUOM = 1 mL,,
+oral ,Susp-Oral,Oral Suspension,SUSP-ORAL,,Drug Form Descriptor: oral suspension,acyclovir 200 mg/5 mL oral suspension,,oral susp,"30 mL or less = non-divs / include pkg sz
+40 mL - 120 mL= non-divs/ include pkg sz
+anything over 120 mL = divisible ",0/1,BUOM = 1 mL,,
+,Susp-Otic,Otic Suspension,pa,,"Drug Form Descriptor: ear suspension or ear drops
+Include Package Size",colistin/HC/neomycin/thonzonium 0.3%-1%-0.33%-0.05% ear drops [10mL],,ear susp,,0,BUOM = 1 mL,,
+,Susp-Topical,Topical Suspension,,,Drug Form Descriptor: topical suspension,betamethasone-calcipotriene 0.064%-0.005% top susp [60g],,top susp,Include Package Size if product is not divisible,,BUOM = 1 mL,,
+swab,Swab,Swab,SWAB,,Drug Form Descriptor: swab,phenol topical 89% swab [30EA],,,Include Package Size if product is not divisible,0,,A small piece of relatively flat absorbent material that contains a drug.  A swab may also be attached to one end of a small stick.  A swab is typically used for applying medication or for cleansing.,
+,Syringe-inj,Syringe-injection,SYRINGE,,"Drug Form Descriptor: PFS
+Include Package Size","dalteparin 12,500 intl units/0.5 mL PFS [0.5mL]",,,"Include kit descriptions if they are kits (pen-kit, PFS, etc.)",1,,Prefilled injectable syringe containing medication,
+,Syringe-Oral,Oral Syringe,,No,,,,,,,,,
+syrup,Syrup,Syrup,SYRUP,,Drug Form Descriptor: syrup,codeine-guaifenesin 10 mg-100 mg/5 mL syrup,,syr,Include Package Size if product is not divisible,1,BUOM = 1 mL,"An oral solution containing high concentrations of sucrose or other sugars; the term has also been used to include any other liquid dosage form prepared in a sweet and viscid vehicle, including oral suspensions.",
+tablet,Tab,Tablet,TAB,,Drug Form: tablet,abacavir 300 mg tablet,,tab,"
+
+",1,"BUOM = 1 cap
+Tab Kits (e.g. Birth Control): 1 EA = 1 tab; 1 Blister Pack = 21/24/28 tabs; 1 Box = n tabs in a box)",A solid dosage form containing medicinal substances with or without suitable diluents.,
+,Tab ,Tablet-OC,TAB,,"ORAL CONTRACEPTIVES
+
+Drug form: tablet","desogestrel/EE 0.15 mg-0.03 mg tab (28)
+","Item description: desogestrel/EE 0.15 mg-0.03 mg tab (28)
+NDC description: Apri (desogetrel/EE) 0.15/0.03 tablet (28)",tab,"1. remove the 'EA' from the package size and put the package size in '()' so it doesn't get stripped from CMOP and use pkg sz on the item level desc
+         - Ex: Desogen 0.5/0.03 tab (28)
+2. Remove 'extended cycle'
+3.Mark all oral contraceptives needs to be marked as non-divisible (exception: Nuva ring)",,,,
+,Tab-12 hr Release,12 Hr. Release Tablet,TAB-12,,"Drug Form Descriptor: tablet
+Include ER description after Drug Name
+Include ""/12 hour"" after Strength Units
+Drug Name| ER | Strength| Strength Units|""/12 hour"" |Drug Form","guaiFENesin ER 1200 mg/12 hour tablet
+",NDC Description: Mucinex ER 1200 mg/12 hour tablet,tab,"1. Only use this dosage form if the manufacturer markets the product as a 12-hour formulation. May need to research if Multum does not pull in. If the manufacturer does not indicate it is 12 hours then do not include and use the Tab-ER drug formulation.
+2. For most items use ER on the item and NDC description; however if there are multiple formulations of the same medication that have different descriptors then use the Brand descriptor (e.g. XR/SR/LA)
+3. The approved exceptions that can have XR/LA/SR: Diltiazem, Nifedipine, Morphine, Methylphenidate, Bupropion, Depakote",1,,,
+,Tab-24 hr Release,24 Hr. Release Tablet,TAB-24,,"Drug Form: tablet
+Include ER description after Drug Name
+Include ""/24 hour"" after Strength Units
+Drug Name| ER | Strength| Strength Units|""/24 hour"" |Drug Form","Item Description: guaiFENesin ER 1200 mg/24 hour tablet
+NDC Description: Mucinex ER 1200 mg/24 hour tablet",NDC Description: Mucinex ER 1200 mg/24 hour tablet,tab,"1. Only use this dosage form if the manufacturer markets the product as a 24-hour formulation. May need to research if Multum does not pull in. If the manufacturer does not indicate it is 12 hours then do not include and use the Tab-ER drug formulation.
+2. For most items use ER on the item and NDC description; however if there are multiple formulations of the same medication that have different descriptors then use the Brand descriptor (e.g. XR/SR/LA)
+3. The approved exceptions that can have XR/LA/SR: Diltiazem, Nifedipine, Morphine, Methylphenidate, Bupropion, Depakote",1,,,
+"tablet, chewable; 
+tablet, chewable, extended release",Tab-Chew,Chewable Tablet,"TAB-CHEW
+TAB-CHEWER",,Drug Form: chew tablet,acetaminophen 80 mg chew tablet,,chew tab,,1,,,
+,Tab-CR,Controlled Release Tablet,TAB-CR,No,,,,,,,,,
+"tablet, coated particles",Tab Coated Particle,Coated Particle Tablet,TAB-CP,No,,,,,,1,,,
+"tablet, disintegrating",Tab-Disintegrating,Disintegrating Tablet,TAB-DIS,,Drug Form: ODT,ARIPiprazole 10 mg ODT,,,"Add package size in parentheses if non-divisible 
+",0/1,,,
+"tablet, disintegrating, extended ",,,,,,,,,,,,,
+"tablet, dispersible",Tab-Dispers,Dispersible Tablet,TAB-DSPERS,,Drug Form: ODT ,sapropterin 100 mg ODT,,,,1,,"A tablet that, prior to administration, is intended to be placed in liquid, where its contents will be distributed evenly throughout that liquid.  Note: The term ‘tablet, dispersible’ is no longer used for approved drug products, and it has been replaced by the term ‘tablet, for suspension’.",
+delayed release tablet,Tab-EC,Enteric Coated Tablet,TAB-EC,,"Drug Form: tablet
+Include EC description after Drug Name
+Drug Name| EC | Strength| Strength Units |Drug Form",acamprosate EC 333 mg tablet,,tab,,1,,A solid dosage form that contains medicinal substances with or without suitable diluents and is covered with a designated coating (includes enteric coated and delayed release),
+"tablet, extended release",Tab-ER,Extended Release Tablet,TAB-ER,,"Drug Form: tablet
+Include ER description after Drug Name
+Drug Name| ER | Strength| Strength Units |Drug Form","oxyMORphone ER 20 mg tablet
+","Item Description: oxyMORphone ER 20 mg tablet
+NDC Description: oxyMORphone ER 20 mg tablet",tab,"1. Use this for any ER tablet that is not specifically 12 or 24 hour formulations.
+2. For most items use ER on the item and NDC description; however if there are multiple formulations of the same medication that have different descriptors then use the Brand descriptor (e.g. XR/SR/LA)
+3. The approved exceptions that can have XR/LA/SR: Diltiazem, Nifedipine, Morphine, Methylphenidate, Bupropion, Depakote",1,,A solid dosage form containing a drug which allows at least a reduction in dosing frequency as compared to that drug presented in conventional dosage form.,
+,Tab-Effrv,Tab-Effrv,TAB-EFF,,Drug Form: effervescent tablet,citric acid-potassium bicarbonate 20 mEq eff tab,,,,0,,"A solid dosage form containing mixtures of acids (e.g., citric acid, tartaric acid) and sodium bicarbonate, which release carbon dioxide when dissolved in water; it is intended to be dissolved or dispersed in water before administration.",
+"tablet, soluble","tablet, soluble","tablet, soluble",,,,,,,,,,,
+,Tab-SL,Sublingual Tablet,TAB-SL,,Drug Form: sublingual tablet,buprenorphine 2 mg sublingual tablet,,tab-sl,DIV=0 (nitroglycerin); DIV=1 (all others),0/1,,,
+,Tab-Vag,Vaginal Tablet,TAB-VAG,,Drug Form: tablet,estradiol 10 mcg vaginal tablet,,,DIV=0 (with applicator); DIV=1 (all others),0/1,,,
+tampon,Tampon,Tampon,TAMPON,No,,,,,, ,,,
+tape,Tape,Tape,TAPE,,Drug Form: tape,flurandrenolide topical 4 mcg/cm2 tape [80 inch],,,Include Package Size if product is not divisible,0,,"A narrow woven fabric, or a narrow extruded synthetic (such as plastic), usually with an adhesive on one or both sides.",
+tincture,Tincture,Tincture,DROP-ORAL,,Drug Form: tincture,fluoride 0.25 mg/drop tincture [24mL],,,DIV=0 (non-oral); DIV=1 (oral),0/1,,An alcoholic or hydroalcoholic solution prepared from vegetable materials or from chemical substances.,
+,Trouche,Trouche,TROUCHE,No,,,,,,,,,
+wafer,Wafer,Wafer,WAFER,No,,,,,,1,,,
+,Vial,Vial,VIAL,No,,,,,,,,,
+,Wash-Topical,Topical Wash,WASH-TOP,No,Drug Form: topical wash,,,,,0,,,
