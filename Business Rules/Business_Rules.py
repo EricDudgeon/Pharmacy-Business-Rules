@@ -88,7 +88,11 @@ rules_text.close()
 def openUpdate():
     root.filename = filedialog.askopenfilename(initialdir="/",title="Browse")
     if root.filename == "":
-        messagebox.showinfo("Warning: Please Make Selection","No selection will result in Business Rules at program creation")
+        rules_text = open("Rule_Path.txt", "r")
+        data_file = rules_text.read()
+        root.filename = data_file
+        rules_text.close()
+        messagebox.showinfo("Warning:","No Selection Made")
     else:
         root.filename = root.filename
     file = open("Rule_Path.txt", "w")
