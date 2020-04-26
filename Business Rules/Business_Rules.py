@@ -7,11 +7,20 @@ Created on Fri Apr 24 20:53:27 2020
 
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
 import pandas as pd
 import sqlite3
-data = pd.read_csv("Business Rules File.csv", index_col=False)
-OPkeys = data["Keys"].astype("string").to_list()
+rules_text = open("Rule_Path.txt", "r")
+data_file = rules_text.read()
 
+if data_file == "":
+    data_file = "Business Rules File.csv"
+else:
+    data_file = data_file
+
+data = pd.read_csv(data_file, index_col=False)
+OPkeys = data["Keys"].astype("string").to_list()
+rules_text.close()
 # def openOP():
 #     OP = Toplevel()
 #     OP.title("Outpatient Business Rules")
@@ -76,19 +85,16 @@ OPkeys = data["Keys"].astype("string").to_list()
 #     OP_sig = Label(top_frame,text="TAB").grid(row=3, column=2, sticky=W,pady=10)
     
     
-    
-    
-    
-# def openIP():
-#     IP = Toplevel()
-#     IP.title("Inpatient Business Rules")
-#     IP.iconbitmap("icon.ico")
-    
 def openUpdate():
-    update = Toplevel()
-    update.title("Updating Business Rules")
-    update.iconbitmap("icon.ico")
-
+    root.filename = filedialog.askopenfilename(initialdir="/",title="Browse")
+    if root.filename == "":
+        messagebox.showinfo("Warning: Please Make Selection","No selection will result in Business Rules at program creation")
+    else:
+        root.filename = root.filename
+    file = open("Rule_Path.txt", "w")
+    file.write(root.filename)
+    file.close()
+ 
 def information():
     info_window = Toplevel()
     info_window.title("Help Menu")
@@ -210,11 +216,8 @@ subMenu.add_command(label="Exit", command=root.destroy)
 
 updateMenu = Menu(menu)
 menu.add_cascade(label = "Update", menu=updateMenu)
-updateMenu.add_command(label="Data File Path")
-updateMenu.add_separator()
-updateMenu.add_command(label="Add")
-updateMenu.add_command(label="Modify")
-updateMenu.add_command(label="Delete")
+updateMenu.add_command(label="Data File Path", command=openUpdate)
+
 
 viewMenu = Menu(menu)
 menu.add_cascade(label = "View", menu=viewMenu)
