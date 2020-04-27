@@ -4,7 +4,7 @@ Created on Fri Apr 24 20:53:27 2020
 
 @author: Eric Dudgeon
 """
-
+import textwrap
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
@@ -40,7 +40,8 @@ rules_text.close()
 #     OPlabel.grid(row=0, column=2, sticky=W)
 #     OP_form_abbrev = Label(top_frame,text="Tab").grid(row=2, column = 2, sticky=W,pady=10)
 #     OP_sig = Label(top_frame,text="TAB").grid(row=3, column=2, sticky=W,pady=10)
-    
+def wrap(string, lenght=50):
+    return '\n'.join(textwrap.wrap(string, lenght))    
     
 def openUpdate():
     root.filename = filedialog.askopenfilename(initialdir="/",title="Browse")
@@ -114,24 +115,23 @@ def OPSelected(event):
     OP.title(OPclick)
     OP.iconbitmap("icon.ico")
     OP.geometry('{}x{}'.format(675, 600))
-    
+    OP.grid_rowconfigure(0, weight=1)
+    OP.grid_columnconfigure(1, weight=1)
     # create all of the OP containers
     top_frame = Frame(OP, pady=10, padx=3)
     center = Frame(OP, padx=3, pady=3)
     btm_frame = Frame(OP, pady=3)
     btm_frame2 = Frame(OP, pady=3)
-    
+    top_frame.columnconfigure(1,weight=1)
     ### Laying out OP container
     
-    top_frame.grid(row=0,sticky=N+E+S+W)
-    center.grid(row=1, sticky=E+W)
-    btm_frame.grid(row=2)
-    btm_frame2.grid(row=3)
+    top_frame.grid(sticky=E+S+N+W)
+    # center.grid(row=1, sticky=E+W)
+    # btm_frame.grid(row=2)
+    # btm_frame2.grid(row=3)
     back= Button(top_frame,text="Back",command=OP.destroy)
     back.grid(row=0,column=0,sticky=E)
     
-    # OP.grid_rowconfigure(1, weight=1)
-    # OP.grid_columnconfigure(1, weight=1)
     
     ## Pulling in OP data
     # DosageForm = data[data["Keys"] == OP_button.get()][["Dosage_Form", "Dosage_Abbrev"]]
@@ -140,18 +140,24 @@ def OPSelected(event):
     OP_list = []
     for item in DosageForm:
         OP_list.append(item)   
-    form = Label(center, text="", wraplength=475)
-    form.config(text=("\n".join(OP_list)))
-    form.grid(row=0, column=1, sticky=W)
     
     ### Getting OP Column headings
     headers = data.keys()
     headers = headers.to_list()
     headers = headers[1:]
-    header_label = Label(center, text="")
-    header_label.config(text=("\n".join(headers)))
-    header_label.grid(row=0, column=0, sticky=W)
+
+    merged_list = [(headers[i], OP_list[i]) for i in range(0, len(headers))]
     
+    treeview = ttk.Treeview(OP)
+    ttk.Style().configure("Treeview",rowheight=60)
+    treeview["columns"]=("One")
+    treeview.column("One",width=200)
+    treeview.grid(row=0,column=1,sticky=E+N+W+S,padx=15, pady=10)
+    treeview.heading("#0",text="Reference")
+    treeview.heading("One",text="Rules")
+    for header, rule in merged_list:
+        treeview.insert("",END,text=header, value=(rule,))
+
 
 #Scroll Dropdown OP
 OP_button = ttk.Combobox(top_frame, value=OPkeys)
