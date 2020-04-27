@@ -167,7 +167,7 @@ OP_button.bind("<<ComboboxSelected>>", OPSelected)
 
 #### Creating Inpatient
 
-IPkeys = ["Eric", "Is", "A", "NERD"]
+IPkeys = ["Eric", "Dan", "Ethan", "Mack"]
 
 def IPSelected(event):
     print("YES")
