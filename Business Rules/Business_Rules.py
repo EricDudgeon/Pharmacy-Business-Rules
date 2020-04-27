@@ -19,54 +19,11 @@ else:
     data_file = data_file
 
 data = pd.read_csv(data_file, index_col=False)
+data["Active"] = data["Active"].fillna("Yes")
+data = data.fillna("Not in data")
 OPkeys = data["Keys"].astype("string").to_list()
 rules_text.close()
-# def openOP():
-#     OP = Toplevel()
-#     OP.title("Outpatient Business Rules")
-#     OP.iconbitmap("icon.ico")
-#     OP.geometry('{}x{}'.format(500, 600))
     
-#     # create all of the OP containers
-#     top_frame = Frame(OP, pady=10, padx=3)
-#     center = Frame(OP, padx=3, pady=3)
-#     btm_frame = Frame(OP, pady=3)
-#     btm_frame2 = Frame(OP, pady=3)
-    
-#     # layout all of the OP containers
-#     # OP.grid_rowconfigure(1, weight=1)
-#     # OP.grid_columnconfigure(0, weight=1)
-    
-#     top_frame.grid(row=0,sticky=N+E+S+W)
-#     center.grid(row=1, sticky=E+W)
-#     btm_frame.grid(row=2)
-#     btm_frame2.grid(row=3)
-    
-#     ## Adding OP Back Button
-#     OPmenu = Menu(OP)
-#     OP.config(menu=OPmenu)
-#     OPsubMenu = Menu(menu)
-#     OPmenu.add_cascade(label = "File", menu=OPsubMenu)
-#     OPsubMenu.add_command(label="View All")
-#     OPsubMenu.add_command(label="View Inactive")
-#     OPsubMenu.add_separator()
-#     OPsubMenu.add_command(label="Back", command=OP.destroy)
-    
-#     ##Creating Selected command FUCKING GENIUS Line of Code
-#     def Selected(event):
-#         DosageForm = data[data["Keys"] == OP_button.get()][["Dosage_Form"]]
-#         Form = DosageForm["Dosage_Form"]
-#         select = StringVar(Form)
-#         OP_form = Label.config(top_frame,text=select)
-#         OP_form.grid(row=1, column = 2, sticky=W,pady=10)
-        
-#     #Scroll Dropdown
-#     OP_button = ttk.Combobox(top_frame, value=keys)
-#     OP_button.grid(row=0, column=0,padx=10, pady=10,sticky=W)
-#     OP_button.current(0)
-#     OP_button.bind("<<ComboboxSelected>>", Selected)
-    
-            
 #     ## Adding labels to OP Left
 #     OP_form_label = Label(top_frame,text="Dosage Form:").grid(row=1, column = 0, sticky=W, pady=10)
 #     OP_form_abbrev_label = Label(top_frame,text="Dosage Form Abbrev").grid(row=2, column=0, sticky=W,pady=10)
@@ -92,7 +49,6 @@ def openUpdate():
         data_file = rules_text.read()
         root.filename = data_file
         rules_text.close()
-        messagebox.showinfo("Warning:","No Selection Made")
     else:
         root.filename = root.filename
     file = open("Rule_Path.txt", "w")
@@ -144,7 +100,7 @@ IPlabel.grid(row=1, column=2,padx=50, pady=0, sticky=E)
 NTButton = Button(btm_frame2, text="Narrow Therp")
 NTButton.grid(row=0, column=0,padx=5, pady=5)
 
-SIButton = Button(btm_frame2, text="Syringe-Inj")
+SIButton = Button(btm_frame2, text="Single-line Inj")
 SIButton.grid(row=0, column=1,padx=5, pady=5)
 
 ExButton = Button(btm_frame2, text="Exceptions")
@@ -154,9 +110,10 @@ ExButton.grid(row=0, column=2,padx=5, pady=5)
 
 def OPSelected(event):
     OP = Toplevel()
-    OP.title("Outpatient Bussiness Rules")
+    OPclick = OP_button.get()
+    OP.title(OPclick)
     OP.iconbitmap("icon.ico")
-    OP.geometry('{}x{}'.format(500, 600))
+    OP.geometry('{}x{}'.format(675, 600))
     
     # create all of the OP containers
     top_frame = Frame(OP, pady=10, padx=3)
@@ -164,25 +121,39 @@ def OPSelected(event):
     btm_frame = Frame(OP, pady=3)
     btm_frame2 = Frame(OP, pady=3)
     
-    # layout all of the OP containers
-    # OP.grid_rowconfigure(1, weight=1)
-    # OP.grid_columnconfigure(0, weight=1)
+    ### Laying out OP container
     
     top_frame.grid(row=0,sticky=N+E+S+W)
     center.grid(row=1, sticky=E+W)
     btm_frame.grid(row=2)
     btm_frame2.grid(row=3)
-    back= Button(OP,text="Back",command=OP.destroy)
+    back= Button(top_frame,text="Back",command=OP.destroy)
     back.grid(row=0,column=0,sticky=E)
-    # Pulling in OP data
     
-    DosageForm = data[data["Keys"] == OP_button.get()][["Dosage_Form"]]
-    form = Label(OP, text=DosageForm)
-    form.grid(row=0, column=1)
-    # OP_form = Label.config(top_frame,text=select)
-    # OP_form.grid(row=1, column = 2, sticky=W,pady=10)
+    # OP.grid_rowconfigure(1, weight=1)
+    # OP.grid_columnconfigure(1, weight=1)
     
-#Scroll Dropdown
+    ## Pulling in OP data
+    # DosageForm = data[data["Keys"] == OP_button.get()][["Dosage_Form", "Dosage_Abbrev"]]
+    DosageForm = data[data["Keys"] == OP_button.get()]
+    DosageForm = DosageForm.iloc[0,1:]
+    OP_list = []
+    for item in DosageForm:
+        OP_list.append(item)   
+    form = Label(center, text="", wraplength=475)
+    form.config(text=("\n".join(OP_list)))
+    form.grid(row=0, column=1, sticky=W)
+    
+    ### Getting OP Column headings
+    headers = data.keys()
+    headers = headers.to_list()
+    headers = headers[1:]
+    header_label = Label(center, text="")
+    header_label.config(text=("\n".join(headers)))
+    header_label.grid(row=0, column=0, sticky=W)
+    
+
+#Scroll Dropdown OP
 OP_button = ttk.Combobox(top_frame, value=OPkeys)
 OP_button.grid(row=2, column=0,padx=2, pady=0,sticky=W)
 OP_button.current(0)
@@ -194,11 +165,7 @@ IPkeys = ["Eric", "Is", "A", "NERD"]
 
 def IPSelected(event):
     print("YES")
-    # DosageForm = data[data["Keys"] == OP_button.get()][["Dosage_Form"]]
-    # Form = DosageForm["Dosage_Form"]
-    # select = StringVar(Form)
-    # OP_form = Label.config(top_frame,text=select)
-    # OP_form.grid(row=1, column = 2, sticky=W,pady=10)
+
     
 #Scroll Dropdown
 IP_button = ttk.Combobox(top_frame, value=IPkeys)
