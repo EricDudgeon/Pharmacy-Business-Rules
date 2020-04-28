@@ -14,37 +14,24 @@ rules_text = open("Rule_Path.txt", "r")
 data_file = rules_text.read()
 
 if data_file == "":
-    data_file = "Business Rules File.csv"
+    data_file = "Business Rules File.xlsx"
 else:
     data_file = data_file
 
-data = pd.read_csv(data_file, index_col=False)
+data = pd.read_excel(data_file, index_col=False, sheet_name="Drug Forms")
+data = data[data["Active"].isnull()]
 data["Active"] = data["Active"].fillna("Yes")
-data = data.fillna("Not in data")
+data = data.fillna("")
 OPkeys = data["Keys"].astype("string").to_list()
+OPkeys = sorted(OPkeys,key=str.lower)
 rules_text.close()
     
-#     ## Adding labels to OP Left
-#     OP_form_label = Label(top_frame,text="Dosage Form:").grid(row=1, column = 0, sticky=W, pady=10)
-#     OP_form_abbrev_label = Label(top_frame,text="Dosage Form Abbrev").grid(row=2, column=0, sticky=W,pady=10)
-#     OP_sig_label = Label(top_frame,text="SIG Tool").grid(row=3, column=0, sticky=W,pady=10)
-    
-#     ## Aligned format
-#     space= Label(top_frame,text="").grid(row=0,column=1,padx=25)
-#     space1= Label(top_frame,text="").grid(row=1,column=1,padx=25)
-#     space3= Label(top_frame, text="").grid(row=2,column=1, padx=6)
-#     space3= Label(top_frame, text="").grid(row=3,column=1, padx=20)
-    
-#     ##Adding Labels to OP Right
-#     OPlabel = Label(top_frame,text="Outpatient Pharmacy Business Rules")
-#     OPlabel.grid(row=0, column=2, sticky=W)
-#     OP_form_abbrev = Label(top_frame,text="Tab").grid(row=2, column = 2, sticky=W,pady=10)
-#     OP_sig = Label(top_frame,text="TAB").grid(row=3, column=2, sticky=W,pady=10)
-def wrap(string, lenght=50):
-    return '\n'.join(textwrap.wrap(string, lenght))    
+
+def wrap(item, lenght=75):
+    return '\n'.join(textwrap.wrap(item, lenght))    
     
 def openUpdate():
-    root.filename = filedialog.askopenfilename(initialdir="/",title="Browse")
+    root.filename = filedialog.askopenfilename(initialdir="/",title="Browse", filetypes=(("Excel Workbook","*.xlsx"),))
     if root.filename == "":
         rules_text = open("Rule_Path.txt", "r")
         data_file = rules_text.read()
@@ -61,11 +48,22 @@ def information():
     info_window.title("Help Menu")
     info_window.iconbitmap("icon.ico")
     info_frame = Frame(info_window)
-    label = Label(info_window,text="Email Dan Garrison after 5pm for help")
-    label.grid(row=0)
+    label = Label(info_window,text="1: Do not change 'Active' column heading in dataset")
+    label.grid(row=0, pady=5,padx=10, sticky=W)
+    label2 = Label(info_window, text="2: Active column values should be blank unless inactive")
+    label2.grid(row=1, pady=5,padx=10, sticky=W)
+    label3 = Label(info_window, text="3: Primary Keys(to pull back data) are in dataset column A")
+    label3.grid(row=2, pady=5,padx=10, sticky=W)
+    label3 = Label(info_window, text="4: Dont change sheet names relating to the data")
+    label3.grid(row=3, pady=5,padx=10, sticky=W)
+ 
 
+#### CREATING INACTIVE
+def inactive():
+    return
+    
 
-            
+           
 ### CREATING MAIN WINDOW ###
         
 root = Tk()
@@ -114,7 +112,7 @@ def OPSelected(event):
     OPclick = OP_button.get()
     OP.title(OPclick)
     OP.iconbitmap("icon.ico")
-    OP.geometry('{}x{}'.format(675, 600))
+    OP.geometry('{}x{}'.format(725, 600))
     OP.grid_rowconfigure(0, weight=1)
     OP.grid_columnconfigure(1, weight=1)
     # create all of the OP containers
@@ -137,10 +135,10 @@ def OPSelected(event):
     # DosageForm = data[data["Keys"] == OP_button.get()][["Dosage_Form", "Dosage_Abbrev"]]
     DosageForm = data[data["Keys"] == OP_button.get()]
     DosageForm = DosageForm.iloc[0,1:]
+    DosageForm = DosageForm.apply(str)
     OP_list = []
     for item in DosageForm:
         OP_list.append(item)   
-    
     ### Getting OP Column headings
     headers = data.keys()
     headers = headers.to_list()
@@ -148,15 +146,21 @@ def OPSelected(event):
 
     merged_list = [(headers[i], OP_list[i]) for i in range(0, len(headers))]
     
+    ### DISPLAYING DATA
     treeview = ttk.Treeview(OP)
+    verscrlbar = ttk.Scrollbar(OP,  orient ="vertical", command = treeview.yview)
+    verscrlbar.grid(column=2, row=0, sticky=N+S)  
+
     ttk.Style().configure("Treeview",rowheight=60)
     treeview["columns"]=("One")
+    treeview.column("#0",width=50)
     treeview.column("One",width=200)
     treeview.grid(row=0,column=1,sticky=E+N+W+S,padx=15, pady=10)
     treeview.heading("#0",text="Reference")
     treeview.heading("One",text="Rules")
+
     for header, rule in merged_list:
-        treeview.insert("",END,text=header, value=(rule,))
+        treeview.insert("",END,text=header, value=(wrap(rule),))
 
 
 #Scroll Dropdown OP
@@ -167,7 +171,7 @@ OP_button.bind("<<ComboboxSelected>>", OPSelected)
 
 #### Creating Inpatient
 
-IPkeys = ["Eric", "Dan", "Ethan", "Mack"]
+IPkeys = ["to be built"]
 
 def IPSelected(event):
     print("YES")
