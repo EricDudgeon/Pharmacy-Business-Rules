@@ -17,11 +17,19 @@ if data_file == "":
     data_file = "Business Rules File - Master.xlsx"
 else:
     data_file = data_file
-    
+
+while True:
+    try:
+        datafile = pd.read_excel(data_file, sheet_name="Drug Forms")
+    except:
+        data_file = "Business Rules File - Master.xlsx"
+    else:
+        break
+          
 rules_text.close()
 
 data = pd.read_excel(data_file, index_col=False, sheet_name="Drug Forms")
-
+        
 ###Reading Narrow Therp
 Narrows = pd.read_excel(data_file,index_col=False,sheet_name="NTIs")
 Item_desc = Narrows.loc[0,"Item Description"]
