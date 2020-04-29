@@ -14,22 +14,41 @@ rules_text = open("Rule_Path.txt", "r")
 data_file = rules_text.read()
 
 if data_file == "":
-    data_file = "Business Rules File.xlsx"
+    data_file = "Business Rules File - Master.xlsx"
 else:
     data_file = data_file
+    
+rules_text.close()
 
 data = pd.read_excel(data_file, index_col=False, sheet_name="Drug Forms")
+
+###Reading Narrow Therp
+Narrows = pd.read_excel(data_file,index_col=False,sheet_name="NTIs")
+Item_desc = Narrows.loc[0,"Item Description"]
+NDC_desc = Narrows.loc[0,"NDC Description"]
+Narrows.loc[Narrows["Item Description"].isnull(), "Item Description"] = Item_desc
+Narrows.loc[Narrows["NDC Description"].isnull(), "NDC Description"] = NDC_desc
+Narrows = Narrows.fillna("")
+NTkeys = Narrows["Keys"].to_list()
+NTkeys = sorted(NTkeys,key=str.lower)
+
+###inactive Data
+old_data = data[~data["Active"].isnull()]
+old_data = old_data.fillna(" ")
+INkeys = old_data["Keys"].astype("string").to_list()
+INkeys = sorted(INkeys,key=str.lower)
+#### Active OP data
 data = data[data["Active"].isnull()]
 data["Active"] = data["Active"].fillna("Yes")
 data = data.fillna("")
 OPkeys = data["Keys"].astype("string").to_list()
 OPkeys = sorted(OPkeys,key=str.lower)
-rules_text.close()
     
-
+#### TEXT WRAP FUNCTION
 def wrap(item, lenght=75):
     return '\n'.join(textwrap.wrap(item, lenght))    
-    
+
+##### CREATING ABILITY TO UPDATE FILE   
 def openUpdate():
     root.filename = filedialog.askopenfilename(initialdir="/",title="Browse", filetypes=(("Excel Workbook","*.xlsx"),))
     if root.filename == "":
@@ -42,7 +61,8 @@ def openUpdate():
     file = open("Rule_Path.txt", "w")
     file.write(root.filename)
     file.close()
- 
+
+#### CREATING HELP WINDOW FUNCTION
 def information():
     info_window = Toplevel()
     info_window.title("Help Menu")
@@ -52,61 +72,123 @@ def information():
     label.grid(row=0, pady=5,padx=10, sticky=W)
     label2 = Label(info_window, text="2: Active column values should be blank unless inactive")
     label2.grid(row=1, pady=5,padx=10, sticky=W)
-    label3 = Label(info_window, text="3: Primary Keys(to pull back data) are in dataset column A")
+    label3 = Label(info_window, text="3: Primary Keys(to pull back data) are in dataset column A.")
     label3.grid(row=2, pady=5,padx=10, sticky=W)
-    label3 = Label(info_window, text="4: Dont change sheet names relating to the data")
+    label3 = Label(info_window, text="4: Keys can be changed as needed but not the header 'Keys'")
     label3.grid(row=3, pady=5,padx=10, sticky=W)
- 
+    label4 = Label(info_window, text="5: Dont change sheet names relating to the data")
+    label4.grid(row=4, pady=5,padx=10, sticky=W)
 
-#### CREATING INACTIVE
+#### CREATING INACTIVE FUNCTION
 def inactive():
-    return
+    i_form = Toplevel()
+    i_form.title("Inactive")
+    i_form.iconbitmap("icon.ico")
+    i_form.geometry('{}x{}'.format(200, 50))
+    top_frame = Frame(i_form, pady=10)
+    top_frame.grid(row=0, sticky=N+E+S+W)
+    back= Button(top_frame,text="Back",command=i_form.destroy)
+    back.grid(row=0,column=0,sticky=E+N)
     
+    def INSelected(event):
+        inactive = Toplevel()
+        INClick = scroll.get()
+        inactive.title(INClick)
+        inactive.iconbitmap("icon.ico")
+        inactive.geometry('{}x{}'.format(752, 600))
+        inactive.grid_rowconfigure(0, weight=1)
+        inactive.grid_columnconfigure(1, weight=1)
+        top_frame = Frame(inactive, pady=0)
+        top_frame.grid(row=0, sticky=N+E+S+W)
+        back= Button(top_frame,text="Back",command=inactive.destroy)
+        back.grid(row=0,column=0,sticky=E+N)
+ 
+        ### Getting inactive information
+        old = old_data[old_data["Keys"] == scroll.get()]
+        old = old.iloc[0,1:]
+        old = old.apply(str)
+        old_list = []
+        for item in old:
+            old_list.append(item)   
+        ### Getting OP Column headings
+        headers = old_data.keys()
+        headers = headers.to_list()
+        headers = headers[1:]
+    
+        merged_list = [(headers[i], old_list[i]) for i in range(0, len(headers))]
+        
+        ### DISPLAYING DATA
+        treeview = ttk.Treeview(inactive)
+        verscrlbar = ttk.Scrollbar(inactive,  orient ="vertical", command = treeview.yview)
+        verscrlbar.grid(column=2, row=0, sticky=N+S)  
+    
+        ttk.Style().configure("Treeview",rowheight=60)
+        treeview["columns"]=("One")
+        treeview.column("#0",width=50)
+        treeview.column("One",width=200)
+        treeview.grid(row=0,column=1,sticky=E+N+W+S,padx=15, pady=10)
+        treeview.heading("#0",text="Reference")
+        treeview.heading("One",text="Rules")
+    
+        for header, rule in merged_list:
+            treeview.insert("",END,text=header, value=(wrap(rule),))
+            
+    #Scrollbar for inactive
+    scroll = ttk.Combobox(top_frame, value=INkeys)
+    scroll.grid(row=0, column=1,padx=5, pady=0)
+    scroll.current(0)
+    scroll.bind("<<ComboboxSelected>>", INSelected)
+    
+### CREATING NARROW THERPS FUNCTION    
+def NTs(event):
+    ### creating main container for NT
+    Nt = Toplevel()
+    NTClick = Nt_drop.get()
+    Nt.title(NTClick)
+    Nt.iconbitmap("icon.ico")
+    Nt.geometry('{}x{}'.format(725, 600))
+    Nt.grid_rowconfigure(0, weight=1)
+    Nt.grid_columnconfigure(1, weight=1)
+    top_frame = Frame(Nt, pady=0)
+    top_frame.grid(row=0, sticky=N+E+S+W)
+    back= Button(top_frame,text="Back",command=Nt.destroy)
+    back.grid(row=0,column=0,sticky=E+N)
 
+    Therps = Narrows[Narrows["Keys"] == Nt_drop.get()]
+    Therps = Therps.iloc[0,1:]
+    Therps = Therps.apply(str)
+    Therps_list = []
+    for item in Therps:
+        Therps_list.append(item)   
+    ### Getting OP Column headings
+    headers = Narrows.keys()
+    headers = headers.to_list()
+    headers = headers[1:]
+
+    merged_list = [(headers[i], Therps_list[i]) for i in range(0, len(headers))]
+    
+    ### DISPLAYING DATA
+    treeview = ttk.Treeview(Nt)
+    verscrlbar = ttk.Scrollbar(Nt,  orient ="vertical", command = treeview.yview)
+    verscrlbar.grid(column=2, row=0, sticky=N+S)  
+
+    ttk.Style().configure("Treeview",rowheight=80)
+    treeview["columns"]=("One")
+    treeview.column("#0",minwidth=0,width=135, stretch=False)
+    treeview.column("One",width=200)
+    treeview.grid(row=0,column=1,sticky=E+N+W+S,padx=15, pady=10)
+    treeview.heading("#0",text="Reference")
+    treeview.heading("One",text="Rules")
+
+    for header, rule in merged_list:
+        treeview.insert("",END,text=header, value=(wrap(rule),))
+    
            
-### CREATING MAIN WINDOW ###
-        
-root = Tk()
-root.title("Federal Business Rules")
-root.geometry('{}x{}'.format(325, 350))
-root.iconbitmap("icon.ico")
+###CREATING SINGLE LINE INJECTION FUNCTION
+def SL(event):
+    return
 
-
-# create all of the main containers
-top_frame = Frame(root, pady=0)
-center = Frame(root, padx=3, pady=3)
-btm_frame = Frame(root, pady=3)
-btm_frame2 = Frame(root, pady=3)
-
-# layout all of the main containers
-root.grid_rowconfigure(1, weight=1)
-root.grid_columnconfigure(0, weight=1)
-
-top_frame.grid(row=0)
-center.grid(row=1,)
-btm_frame.grid(row=3)
-btm_frame2.grid(row=4)
-
-label1 = Label(top_frame, text = "Federal Pharmacy Business Rules")
-label1.grid(row=0,column=0, columnspan=3, sticky=N, padx=25, pady=10)
-
-OPlabel = Label(top_frame, text="Outpatient")
-OPlabel.grid(row=1, column=0, padx=40, pady=0, sticky=W)
-        
-IPlabel = Label(top_frame, text="Inpatient")
-IPlabel.grid(row=1, column=2,padx=50, pady=0, sticky=E)
-
-NTButton = Button(btm_frame2, text="Narrow Therp")
-NTButton.grid(row=0, column=0,padx=5, pady=5)
-
-SIButton = Button(btm_frame2, text="Single-line Inj")
-SIButton.grid(row=0, column=1,padx=5, pady=5)
-
-ExButton = Button(btm_frame2, text="Exceptions")
-ExButton.grid(row=0, column=2,padx=5, pady=5)
-
-#### Creating Outpatient
-
+####CREATING OUTPATIENT
 def OPSelected(event):
     OP = Toplevel()
     OPclick = OP_button.get()
@@ -124,7 +206,7 @@ def OPSelected(event):
     ### Laying out OP container
     
     top_frame.grid(sticky=E+S+N+W)
-    # center.grid(row=1, sticky=E+W)
+    center.grid(row=1, sticky=E+W)
     # btm_frame.grid(row=2)
     # btm_frame2.grid(row=3)
     back= Button(top_frame,text="Back",command=OP.destroy)
@@ -162,27 +244,82 @@ def OPSelected(event):
     for header, rule in merged_list:
         treeview.insert("",END,text=header, value=(wrap(rule),))
 
-
-#Scroll Dropdown OP
-OP_button = ttk.Combobox(top_frame, value=OPkeys)
-OP_button.grid(row=2, column=0,padx=2, pady=0,sticky=W)
-OP_button.current(0)
-OP_button.bind("<<ComboboxSelected>>", OPSelected)
-
-#### Creating Inpatient
-
+#### CREATING INPATIENT
 IPkeys = ["to be built"]
 
 def IPSelected(event):
     print("YES")
 
+
+### CREATING MAIN WINDOW ###
+        
+root = Tk()
+root.title("Federal Business Rules")
+root.geometry('{}x{}'.format(325, 200))
+root.iconbitmap("icon.ico")
+
+
+# create all of the main containers
+top_frame = Frame(root)
+center = Frame(root)
+# btm_frame = Frame(root)
+# btm_frame2 = Frame(root, pady=3)
+
+# layout all of the main containers
+root.grid_rowconfigure(1, weight=1)
+root.grid_columnconfigure(0, weight=1)
+
+
+top_frame.grid(row=0,sticky=N+E+S+W)
+center.grid(row=1,sticky=W+N+E+S, pady=10)
+# center.grid(row=3,sticky=W+N+E+S,pady=10)
+# btm_frame.grid(row=2, sticky=W+N+E+S, pady=10)
+# btm_frame2.grid(row=4)
+
+#### CREATING LABELS
+label1 = Label(top_frame, text = "Federal Pharmacy Business Rules")
+label1.grid(row=0,column=0, columnspan=3, sticky=N, padx=25, pady=10)
+
+OPlabel = Label(top_frame, text="Outpatient")
+OPlabel.grid(row=1, column=0, padx=5, pady=0, sticky=W)
+        
+IPlabel = Label(top_frame, text="Inpatient")
+IPlabel.grid(row=1, column=2,padx=15, pady=0, sticky=W)
+
+NTlabel = Label(center, text="Narrow Therapeutic")
+NTlabel.grid(row=0, column=0, padx=5,sticky=W)
+
+SLlabel = Label(center, text="Single-Line Inj")
+SLlabel.grid(row=0, column=1, padx=15,sticky=W)
+
+
+#Scroll Dropdown OP
+OP_button = ttk.Combobox(top_frame, value=OPkeys)
+OP_button.grid(row=2, column=0,padx=5, pady=0,sticky=W)
+OP_button.current(0)
+OP_button.bind("<<ComboboxSelected>>", OPSelected)
+
     
-#Scroll Dropdown
+#Scroll Dropdown IP
 IP_button = ttk.Combobox(top_frame, value=IPkeys)
-IP_button.grid(row=2, column=2,padx=2, pady=0,sticky=E)
+IP_button.grid(row=2, column=2,padx=15, pady=0,sticky=W)
 IP_button.current(0)
 IP_button.bind("<<ComboboxSelected>>", IPSelected)
 
+
+###Scroll Dropdown for NT
+Nt_drop = ttk.Combobox(center, value=NTkeys)
+Nt_drop.grid(row=1, column=0,padx=5, pady=0,sticky=W)
+Nt_drop.current(0)
+Nt_drop.bind("<<ComboboxSelected>>", NTs)
+
+####Scroll Dropdown for Singline INJ
+Sl_drop = ttk.Combobox(center, value=NTkeys)
+Sl_drop.grid(row=1, column=1,padx=15, pady=0,sticky=W)
+Sl_drop.current(0)
+Sl_drop.bind("<<ComboboxSelected>>", NTs)
+
+####Scroll Dropdown for Inactive
 
 ## Creating the Menu bar
 
@@ -202,10 +339,15 @@ updateMenu.add_command(label="Data File Path", command=openUpdate)
 
 viewMenu = Menu(menu)
 menu.add_cascade(label = "View", menu=viewMenu)
+viewMenu.add_command(label="Exceptions")
 viewMenu.add_command(label="All-OP")
 viewMenu.add_command(label="All-IP")
 viewMenu.add_separator()
-viewMenu.add_command(label="Inactive")
+viewMenu.add_command(label="Inactive", command=inactive)
 
+ToolMenu = Menu(menu)
+menu.add_cascade(label = "Tools", menu=ToolMenu)
+ToolMenu.add_command(label="PPSN")
+ToolMenu.add_command(label="AB Rating")
 
 root.mainloop()
