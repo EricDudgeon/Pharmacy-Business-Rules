@@ -183,7 +183,20 @@ def NTs(event):
     for header, rule in merged_list:
         treeview.insert("",END,text=header, value=(wrap(rule),))
     
-           
+###CREATING EXCEPTIONS
+def Exceptions():
+    e = Toplevel()
+    e.title("Exceptions")
+    e.iconbitmap("icon.ico")
+    e.geometry('{}x{}'.format(200, 50))
+    top_frame = Frame(e, pady=10)
+    top_frame.grid(row=0, sticky=N+E+S+W)
+    back= Button(top_frame,text="Back",command=e.destroy)
+    back.grid(row=0,column=0,sticky=E+N,pady=3)
+    label = Label(top_frame,text="NDC:").grid(row=0,column=1)
+    entry = Entry(e).grid(row=0,column=2)
+
+          
 ###CREATING SINGLE LINE INJECTION FUNCTION
 def SL(event):
     return
@@ -245,7 +258,7 @@ def OPSelected(event):
         treeview.insert("",END,text=header, value=(wrap(rule),))
 
 #### CREATING INPATIENT
-IPkeys = ["to be built"]
+IPkeys = ["To be built?"]
 
 def IPSelected(event):
     print("YES")
@@ -313,11 +326,12 @@ Nt_drop.grid(row=1, column=0,padx=5, pady=0,sticky=W)
 Nt_drop.current(0)
 Nt_drop.bind("<<ComboboxSelected>>", NTs)
 
+SLkeys=["To be built?"]
 ####Scroll Dropdown for Singline INJ
-Sl_drop = ttk.Combobox(center, value=NTkeys)
+Sl_drop = ttk.Combobox(center, value=SLkeys)
 Sl_drop.grid(row=1, column=1,padx=15, pady=0,sticky=W)
 Sl_drop.current(0)
-Sl_drop.bind("<<ComboboxSelected>>", NTs)
+Sl_drop.bind("<<ComboboxSelected>>")
 
 ####Scroll Dropdown for Inactive
 
@@ -339,15 +353,7 @@ updateMenu.add_command(label="Data File Path", command=openUpdate)
 
 viewMenu = Menu(menu)
 menu.add_cascade(label = "View", menu=viewMenu)
-viewMenu.add_command(label="Exceptions")
-viewMenu.add_command(label="All-OP")
-viewMenu.add_command(label="All-IP")
-viewMenu.add_separator()
+viewMenu.add_command(label="Exceptions", command=Exceptions)
 viewMenu.add_command(label="Inactive", command=inactive)
-
-ToolMenu = Menu(menu)
-menu.add_cascade(label = "Tools", menu=ToolMenu)
-ToolMenu.add_command(label="PPSN")
-ToolMenu.add_command(label="AB Rating")
 
 root.mainloop()
