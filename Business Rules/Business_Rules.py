@@ -53,9 +53,15 @@ OPkeys = data["Keys"].astype("string").to_list()
 OPkeys = sorted(OPkeys,key=str.lower)
     
 #### TEXT WRAP FUNCTION
-def wrap(item, lenght=75):
-    return '\n'.join(textwrap.wrap(item, lenght))    
 
+def wrap(item, length=75):
+    item = item.replace("\n\n","\n")
+    item = item.replace("\n","**")
+    item = item.replace("'","")
+    item ='\n'.join(textwrap.wrap(item, length))
+    item = item.replace("**","\n")
+    return item
+        
 ##### CREATING ABILITY TO UPDATE FILE   
 def openUpdate():
     root.filename = filedialog.askopenfilename(initialdir="/",title="Browse", filetypes=(("Excel Workbook","*.xlsx"),))
@@ -167,14 +173,14 @@ def NTs(event):
     Therps = Therps.apply(str)
     Therps_list = []
     for item in Therps:
-        Therps_list.append(item)   
+        Therps_list.append(item)
     ### Getting OP Column headings
     headers = Narrows.keys()
     headers = headers.to_list()
     headers = headers[1:]
 
     merged_list = [(headers[i], Therps_list[i]) for i in range(0, len(headers))]
-    
+
     ### DISPLAYING DATA
     treeview = ttk.Treeview(Nt)
     verscrlbar = ttk.Scrollbar(Nt,  orient ="vertical", command = treeview.yview)
@@ -261,7 +267,7 @@ def OPSelected(event):
     treeview.grid(row=0,column=1,sticky=E+N+W+S,padx=15, pady=10)
     treeview.heading("#0",text="Reference")
     treeview.heading("One",text="Rules")
-
+    
     for header, rule in merged_list:
         treeview.insert("",END,text=header, value=(wrap(rule),))
 
