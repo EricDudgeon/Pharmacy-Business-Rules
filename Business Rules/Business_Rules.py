@@ -98,7 +98,7 @@ def inactive():
     i_form = Toplevel()
     i_form.title("Inactive")
     i_form.iconbitmap("icon.ico")
-    i_form.geometry('{}x{}'.format(200, 50))
+    i_form.geometry('{}x{}'.format(250, 50))
     top_frame = Frame(i_form, pady=10)
     top_frame.grid(row=0, sticky=N+E+S+W)
     back= Button(top_frame,text="Back",command=i_form.destroy)
@@ -262,7 +262,7 @@ def OPSelected(event):
 
     ttk.Style().configure("Treeview",rowheight=60)
     treeview["columns"]=("One")
-    treeview.column("#0",width=50)
+    treeview.column("#0",width=250, stretch=False)
     treeview.column("One",width=200)
     treeview.grid(row=0,column=1,sticky=E+N+W+S,padx=15, pady=10)
     treeview.heading("#0",text="Reference")
@@ -282,7 +282,7 @@ def IPSelected(event):
         
 root = Tk()
 root.title("Federal Business Rules")
-root.geometry('{}x{}'.format(325, 200))
+root.geometry('{}x{}'.format(405, 200))
 root.iconbitmap("icon.ico")
 
 
